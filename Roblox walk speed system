@@ -1,0 +1,130 @@
+-- Kakarot Hub | Ultra Instinct Version (Circular Buttons Update)          
+local Players = game:GetService("Players")          
+local TweenService = game:GetService("TweenService")          
+local player = Players.LocalPlayer          
+local playerGui = player:WaitForChild("PlayerGui")          
+          
+if playerGui:FindFirstChild("KakarotHubUI") then          
+	playerGui.KakarotHubUI:Destroy()          
+end          
+          
+local gui = Instance.new("ScreenGui", playerGui)          
+gui.Name = "KakarotHubUI"          
+gui.ResetOnSpawn = false          
+          
+local frame = Instance.new("Frame", gui)          
+frame.Size = UDim2.new(0, 260, 0, 160)          
+frame.Position = UDim2.new(0.5, -130, 0.5, -80)          
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)          
+frame.BorderSizePixel = 0          
+frame.Name = "MainFrame"          
+frame.Active = true          
+frame.Draggable = true          
+          
+-- Fully rounded frame          
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)          
+          
+-- Title Label          
+local title = Instance.new("TextLabel", frame)          
+title.Size = UDim2.new(1, 0, 0, 30)          
+title.BackgroundTransparency = 1          
+title.Text = "Kakarot Hub | Ultra Instinct Version"          
+title.TextColor3 = Color3.new(1, 1, 1)          
+title.Font = Enum.Font.GothamBold          
+title.TextSize = 14          
+title.Name = "Title"          
+          
+-- Buttons container (for hide/show)          
+local buttonsFrame = Instance.new("Frame", frame)          
+buttonsFrame.Size = UDim2.new(1, 0, 1, -30)          
+buttonsFrame.Position = UDim2.new(0, 0, 0, 30)          
+buttonsFrame.BackgroundTransparency = 1          
+buttonsFrame.Name = "Buttons"          
+          
+-- Button creator          
+local function createButton(text, posY)          
+	local btn = Instance.new("TextButton", buttonsFrame)          
+	btn.Size = UDim2.new(0.9, 0, 0, 32)          
+	btn.Position = UDim2.new(0.05, 0, 0, posY)          
+	btn.Text = text          
+	btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)          
+	btn.TextColor3 = Color3.new(1, 1, 1)          
+	btn.Font = Enum.Font.GothamBold          
+	btn.TextSize = 14          
+	btn.BorderSizePixel = 0          
+	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)          
+	return btn          
+end          
+          
+-- Speed system          
+local speedEnabled = false          
+local tspeed = 0.3          
+local connection          
+          
+local speedBtn = createButton("Speed Boost [OFF]", 5)          
+speedBtn.MouseButton1Click:Connect(function()          
+	speedEnabled = not speedEnabled          
+	speedBtn.Text = "Speed Boost [" .. (speedEnabled and "ON" or "OFF") .. "]"          
+          
+	if speedEnabled then          
+		local chr = player.Character or player.CharacterAdded:Wait()          
+		local hum = chr:WaitForChild("Humanoid")          
+		local hb = game:GetService("RunService").Heartbeat          
+          
+		connection = hb:Connect(function()          
+			if hum and hum.Parent and hum.MoveDirection.Magnitude > 0 then          
+				chr:TranslateBy(hum.MoveDirection * tspeed)          
+			end          
+		end)          
+	else          
+		if connection then connection:Disconnect() end          
+	end          
+end)          
+          
+local upBtn = createButton("Increase Speed", 45)          
+upBtn.MouseButton1Click:Connect(function()          
+	tspeed = tspeed + 0.1          
+end)          
+          
+local downBtn = createButton("Decrease Speed", 85)          
+downBtn.MouseButton1Click:Connect(function()          
+	tspeed = math.max(0, tspeed - 0.1)          
+end)          
+          
+-- 🟡 Minimize Button (Circle)          
+local minimize = Instance.new("TextButton", frame)          
+minimize.Size = UDim2.new(0, 20, 0, 20)          
+minimize.Position = UDim2.new(1, -50, 0, 5)          
+minimize.Text = "-"          
+minimize.BackgroundColor3 = Color3.fromRGB(40, 40, 40)          
+minimize.TextColor3 = Color3.new(1, 1, 1)          
+minimize.Font = Enum.Font.GothamBold          
+minimize.TextSize = 16          
+Instance.new("UICorner", minimize).CornerRadius = UDim.new(1, 0)          
+          
+-- 🔴 Close Button (Circle)          
+local close = Instance.new("TextButton", frame)          
+close.Size = UDim2.new(0, 20, 0, 20)          
+close.Position = UDim2.new(1, -25, 0, 5)          
+close.Text = "X"          
+close.BackgroundColor3 = Color3.fromRGB(100, 0, 0)          
+close.TextColor3 = Color3.new(1, 1, 1)          
+close.Font = Enum.Font.GothamBold          
+close.TextSize = 14          
+Instance.new("UICorner", close).CornerRadius = UDim.new(1, 0)          
+          
+-- Minimize logic          
+local minimized = false          
+minimize.MouseButton1Click:Connect(function()          
+	minimized = not minimized          
+	TweenService:Create(frame, TweenInfo.new(0.3), {          
+		Size = minimized and UDim2.new(0, 260, 0, 30) or UDim2.new(0, 260, 0, 160)          
+	}):Play()          
+	buttonsFrame.Visible = not minimized          
+end)          
+          
+-- Close logic          
+close.MouseButton1Click:Connect(function()          
+	if connection then connection:Disconnect() end          
+	gui:Destroy()          
+end)
