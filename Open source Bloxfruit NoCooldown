@@ -1,0 +1,10 @@
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+
+local function setAttr()
+    local char = Player.Character or Player.CharacterAdded:Wait()
+    char:SetAttribute("AllCooldown", 1)
+end
+
+setAttr()
+Player.CharacterAdded:Connect(setAttr)
