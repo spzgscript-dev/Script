@@ -1,0 +1,16 @@
+--bad obfuscated due to not original script LOL!--
+
+local a=game:GetService("CoreGui")local b=game:GetService("StarterGui")b:SetCore("SendNotification",{Title="\83\102\121\32\72\117\98\32\76\111\97\100\101\100\33",Text="\77\97\100\101\32\66\121\32\83\99\114\105\112\115\32\70\111\114\32\89\111\32\111\110\32\89\111\117\84\117\98\101\33\32\74\111\105\110\32\68\105\115\99\111\114\100\32\70\111\114\32\77\111\114\101\33",Duration=10,Icon="rbxassetid://77841955501279",Button1="\65\108\114\105\103\104\116"})local c=Instance.new("ScreenGui",a)c.Name="\83\102\121\72\117\98"c.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
+local d=Instance.new("Frame",c)d.Size=UDim2.new(0,240,0,160)d.Position=UDim2.new(0.5,-120,0.5,-80)d.BackgroundColor3=Color3.fromRGB(0,0,0)d.BackgroundTransparency=0.1
+d.Active=true d.Draggable=true d.BorderSizePixel=0
+local e=Instance.new("UIStroke",d)e.Thickness=2 e.Color=Color3.fromRGB(255,0,0)e.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+local f=Instance.new("Frame",d)f.Size=UDim2.new(1,0,1,0)f.BackgroundTransparency=1 f.ZIndex=0
+local g=Instance.new("ImageLabel",f)g.Size=UDim2.new(1,0,1,0)g.Image="rbxassetid://77841955501279"g.BackgroundTransparency=1 g.ImageTransparency=0.25 g.ScaleType=Enum.ScaleType.Crop g.ZIndex=0
+local h=Instance.new("TextLabel",d)h.Size=UDim2.new(1,0,0,25)h.Text="\83\102\121\32\72\117\98\32\226\128\162\32\86\49\46\50"h.TextColor3=Color3.new(1,1,1)h.BackgroundTransparency=1 h.Font=Enum.Font.SourceSansBold h.TextSize=18 h.ZIndex=2
+local i=Instance.new("TextLabel",d)i.Size=UDim2.new(1,-20,0,30)i.Position=UDim2.new(0,10,0,35)i.BackgroundTransparency=1 i.Text="\84\104\97\110\107\32\121\111\117\33"i.Font=Enum.Font.SourceSansBold i.TextSize=20 i.TextColor3=Color3.fromRGB(255,255,255)i.TextXAlignment=Enum.TextXAlignment.Left i.ZIndex=2 local j=Instance.new("UIStroke",i)j.ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual j.Thickness=1.5 j.Color=Color3.fromRGB(0,0,0)
+local k=Instance.new("TextLabel",d)k.Size=UDim2.new(1,-20,0,60)k.Position=UDim2.new(0,10,0,65)k.BackgroundTransparency=1 k.TextWrapped=true
+k.Text="\83\99\114\105\112\116\32\102\117\110\99\116\105\111\110\115\44\32\98\117\116\116\111\110\115\32\97\110\100\32\101\118\101\114\121\116\104\105\110\103\32\105\115\32\114\101\108\101\97\115\105\110\103\32\97\116\32\52\48\48\32\109\101\109\98\101\114\115\33\32\65\115\32\115\111\111\110\32\97\115\32\52\48\48\32\109\101\109\98\101\114\115\32\119\105\108\108\32\100\114\111\112\44\32\102\117\110\99\116\105\111\110\115\32\119\105\108\108\32\100\114\111\112\33"
+k.Font=Enum.Font.SourceSans k.TextSize=15 k.TextColor3=Color3.fromRGB(255,255,255)k.ZIndex=2 k.TextYAlignment=Enum.TextYAlignment.Top k.TextXAlignment=Enum.TextXAlignment.Left
+local l=Instance.new("UIStroke",k)l.ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual l.Thickness=1.5 l.Color=Color3.fromRGB(0,0,0)
+local m=Instance.new("TextLabel",d)m.Size=UDim2.new(1,-20,0,25)m.Position=UDim2.new(0,10,1,-30)m.BackgroundTransparency=1 m.Text="\82\101\103\97\114\100\115\58\n\83\99\114\105\112\116\115\32\102\111\114\32\89\111"m.Font=Enum.Font.SourceSansBold m.TextSize=15 m.TextColor3=Color3.fromRGB(255,255,255)m.TextXAlignment=Enum.TextXAlignment.Left m.TextYAlignment=Enum.TextYAlignment.Top m.ZIndex=2
+local n=Instance.new("UIStroke",m)n.ApplyStrokeMode=Enum.ApplyStrokeMode.Contextual n.Thickness=1.5 n.Color=Color3.fromRGB(0,0,0)
