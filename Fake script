@@ -1,6 +1,4 @@
---to the skidder came here to skid this, i don't really mind if you do
-i just hope you learn how to script or give me credits.
-thank you have a nice day--
+
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
