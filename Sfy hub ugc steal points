@@ -1,8 +1,109 @@
---READ PLEASE 
-to the skidder trying to skid this, i really don't mind
-if you do. i hope you learn how to make scripts for yourself 
-i just feel bad that no one gives credits to me
-thank you--
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/spzgscript-dev/Script/refs/heads/main/Fake%20script"))()
 
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local CoreGui = game:GetService("CoreGui")
+local Camera = workspace.CurrentCamera
+
+local player = Players.LocalPlayer
+local flying = false
+local flyLoop
+local speed = 19
+local originalPosition
+
+local ScreenGui = Instance.new("ScreenGui", CoreGui)
+ScreenGui.Name = "SfyHub"
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local Main = Instance.new("Frame", ScreenGui)
+Main.Size = UDim2.new(0, 180, 0, 130)
+Main.Position = UDim2.new(0.5, -90, 0.5, -65)
+Main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Main.BackgroundTransparency = 0.1
+Main.Active = true
+Main.Draggable = true
+Main.BorderSizePixel = 0
+
+local RedBorder = Instance.new("UIStroke", Main)
+RedBorder.Thickness = 2
+RedBorder.Color = Color3.fromRGB(255, 0, 0)
+RedBorder.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+local Title = Instance.new("TextLabel", Main)
+Title.Size = UDim2.new(1, 0, 0, 25)
+Title.Text = "Sfy Hub • V1.2"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 16
+Title.ZIndex = 2
+
+local Body = Instance.new("Frame", Main)
+Body.Size = UDim2.new(1, 0, 1, -25)
+Body.Position = UDim2.new(0, 0, 0, 25)
+Body.BackgroundTransparency = 1
+Body.ZIndex = 2
+
+local function AnimateSwitch(button, turningOn)
+	local goalColor = turningOn and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+	local tween = TweenService:Create(button, TweenInfo.new(0.3), {
+		TextColor3 = goalColor
+	})
+	tween:Play()
+end
+
+local InvisibleBtn = Instance.new("TextButton", Body)
+InvisibleBtn.Size = UDim2.new(0, 120, 0, 35)
+InvisibleBtn.Position = UDim2.new(0.5, -60, 0, 5)
+InvisibleBtn.Text = "Invisible OFF"
+InvisibleBtn.BackgroundTransparency = 0.4
+InvisibleBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+InvisibleBtn.TextColor3 = Color3.new(1, 1, 1)
+InvisibleBtn.BorderSizePixel = 0
+InvisibleBtn.Font = Enum.Font.SourceSansBold
+InvisibleBtn.TextSize = 16
+InvisibleBtn.ZIndex = 3
+
+local Stroke1 = Instance.new("UIStroke", InvisibleBtn)
+Stroke1.Thickness = 2
+Stroke1.Color = Color3.fromRGB(0, 0, 0)
+
+local TextStroke1 = Instance.new("UIStroke", InvisibleBtn)
+TextStroke1.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
+TextStroke1.Thickness = 1.5
+TextStroke1.Color = Color3.fromRGB(0, 0, 0)
+
+local function startInvisible()
+	if flying then return end
+	AnimateSwitch(InvisibleBtn, true)
+
+	flying = true
+	local char = player.Character or player.CharacterAdded:Wait()
+	local hum = char:WaitForChild("Humanoid")
+	local head = char:WaitForChild("Head")
+
+	originalPosition = head.Position
+	hum.WalkSpeed = 0
+	hum.Jump = false
+	wait(0.1)
+
+	head.CFrame = head.CFrame - Vector3.new(0, 19, 0)
+
+	local camCFrame = Camera.CFrame
+	Camera.CameraType = Enum.CameraType.Scriptable
+	Camera.CFrame = camCFrame
+	wait(0.4)
+	Camera.CameraType = Enum.CameraType.Custom
+
+	hum.PlatformStand = true
+	head.Anchored = true
+
+	flyLoop = RunService.Heartbeat:Connect(function(dt)
+		local dir = hum.MoveDirection
+		head.CFrame = head.CFrame + dir * (speed * dt)
+	end)
+
+	head.CFrame = CFrame.new(originalPosition - Vector3.new(0, 1, 0))
+	hum.WalkSpeed = 16
+end
